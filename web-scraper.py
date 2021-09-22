@@ -14,5 +14,5 @@ for job_elem in job_elements:
     location_element = job_elem.find("p", class_="location")
     print(title_element.text.strip())
     print(company_element.text.strip())
-    print(location_element.text.strip(), end="\n"*2)
+    print(location_element.text.strip(), "\n"*2)
     

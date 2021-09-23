@@ -14,4 +14,3 @@ python_jobs= results.find_all(
 for job in python_jobs:
   print(job.text.strip(), end="\n"*2)
   
-print(python_jobs)

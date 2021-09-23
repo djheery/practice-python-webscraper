@@ -1,18 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+PATH = "/Users/user/documents/chromedriver"
+driver = webdriver.Chrome(PATH)
 
-URL = "https://realpython.github.io/fake-jobs"
+URL = "https://www.spotlight.com/contacts/listing/search?Category=Contacts%5CDrama%20%26%20Dance%5CChoreographers"
+driver.get(URL)
+
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-results = soup.find(id="ResultsContainer")
+results = soup.find_all("li", class_="searchResultItem")
 
-job_elements = results.find_all("div", class_="card-content")
-for job_elem in job_elements:
-    title_element = job_elem.find("h2", class_="title")
-    company_element = job_elem.find("h3", class_="company")
-    location_element = job_elem.find("p", class_="location")
-    print(title_element.text.strip())
-    print(company_element.text.strip())
-    print(location_element.text.strip(), end="\n"*2)
-    
+for result in results:
+  button = result.find("a", class_="searchResultViewButton")
+  print(button)

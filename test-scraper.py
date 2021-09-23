@@ -1,3 +1,4 @@
+
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 from pprint import pprint
@@ -12,8 +13,17 @@ def get_data(url):
   return soup
   
 def get_about_info(about):
-  text = about
-  return 'Some about content to fill in what is missing'
+  txt = ''
+  if about != None:
+    if len(about) > 1:
+      arr = about.find_all('p')
+      for p in arr: 
+        txt += p.text.strip()
+    else:
+      txt = about.find('p').text.strip()
+  else:
+    txt = 'Not Defined'
+  return txt
 
 def unscramble_email(email):
   return 'email@email.com'

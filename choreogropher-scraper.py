@@ -1,7 +1,6 @@
-
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
-from pprint import pprint
+from pprint import pp, pprint
 
 s = HTMLSession()
 base_url = 'https://spotlight.com'
@@ -22,23 +21,48 @@ def get_about_info(about):
     else:
       txt = about.find('p').text.strip()
   else:
-    txt = 'Not Defined'
+    txt = 'Not about content provided'
   return txt
 
 def unscramble_email(email):
-  return 'email@email.com'
+  email = email.text.strip()
+  unscrambled_email = ''
+  pointer = 1
+  max_pointer = 6
+  i = 0
+  while i < len(email):
+    if i >= pointer and i <= max_pointer :
+      i = i + 5
+      pointer = max_pointer + 2
+      max_pointer = pointer + 5
+    else:
+      unscrambled_email += email[i]  
+    i = i + 1
+
+  return unscrambled_email
+
+def check_address(page):
+  if not page.find('div', {'data-rc': 'listing-body-address'}):
+    return 'No Address Stated'
+  else:
+    address_container = page.find('div', {'data-rc': 'listing-body-address'})
+    address = address_container.find_all('span')
+    return address[1].text.strip()
+
 
 def get_targeted_content(page):
   name = page.find('span', {'data-rc': 'listing-Name'})
   about = page.find('span', {'data-rc': 'listing-About'})
   email = page.find('a', {'data-rc': 'listing-body-Email address'})
   website = page.find('a', {'data-rc': 'listing-body-Website'})
+  address = check_address(page)
 
   return {
     'name': name.text.strip(),
     'website': website.get('href'),
     'email': unscramble_email(email),
-    'about': get_about_info(about)
+    'about': get_about_info(about),
+    'address': address
   }
 
 def get_links(s): 
@@ -63,5 +87,3 @@ links = get_links(soup)
 content = get_scraping(links)
 
 pprint(content)
-
-  

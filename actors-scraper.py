@@ -21,8 +21,11 @@ def get_about_info(about):
     else:
       txt = about.find('p').text.strip()
   else:
-    txt = 'Not about content provided'
+    txt = 'No about content provided'
   return txt
+
+def check_pagination(page):
+  return
 
 def unscramble_email(email):
   email = email.text.strip()
@@ -38,7 +41,6 @@ def unscramble_email(email):
     else:
       unscrambled_email += email[i]  
     i = i + 1
-
   return unscrambled_email
 
 def check_address(page):
@@ -50,7 +52,12 @@ def check_address(page):
     return address[1].text.strip()
 
 def get_website(website):
-  return
+  if website == None:
+    return 'No Website Found'
+  else: 
+    website = website.get('href')
+    return website
+  
 
 def get_targeted_content(page):
   name = page.find('span', {'data-rc': 'listing-Name'})
@@ -72,7 +79,6 @@ def get_links(s):
   links = s.find_all('a', {'class': 'searchResultViewButton'})
   for link in links:
     linkArr.append(link.get('href'))
-  
   return  linkArr
 
 def get_scraping(links):

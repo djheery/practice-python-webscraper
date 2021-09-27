@@ -1,6 +1,7 @@
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 from pprint import pp, pprint
+import sheetme
 
 s = HTMLSession()
 base_url = 'https://spotlight.com'

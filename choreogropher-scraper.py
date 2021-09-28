@@ -1,11 +1,12 @@
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 from pprint import pp, pprint
-import sheetme
+import scraperTable
 
 s = HTMLSession()
 base_url = 'https://spotlight.com'
 url = 'https://www.spotlight.com/contacts/listing/search?Category=Contacts%5CDrama%20%26%20Dance%5CChoreographers'
+st = scraperTable
 
 def get_data(url):
   r = s.get(url)
@@ -87,4 +88,5 @@ soup = get_data(url)
 links = get_links(soup)
 content = get_scraping(links)
 
-pprint(content)
+pprint(content[0]['email'])
+st.populate_sheet(content)

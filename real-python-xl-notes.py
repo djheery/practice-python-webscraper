@@ -12,24 +12,34 @@ def print_rows():
 ws['A1'] = 'Hello'
 ws['B1'] = 'World'
 
-wb.save(filename=filename)
 
 cell = ws['A1']
 # cell.value = 'Bitch'
 
-print_rows()
 
 ws.insert_cols(idx=1)
-print_rows()
+# (None, 'hello', 'world!')
 
 ws.insert_cols(idx=3, amount=5)
-print_rows()
+# (None, 'hello', None, None, None, None, None, 'world!')
 
 ws.delete_cols(idx=3, amount=5)
 ws.delete_cols(idx=1)
-print_rows()
+# ('hello', 'world!')
 
 ws.insert_rows(idx=1)
-print_rows()
+# (None, None)
+# ('hello', 'world!')
+
 ws.insert_rows(idx=1, amount=3)
-print_rows()
+# (None, None)
+# (None, None)
+# (None, None)
+# (None, None)
+# ('hello', 'world!')
+
+ws.delete_rows(idx=1, amount=4)
+
+ws.insert_rows(idx=1, amount=5)
+
+wb.save(filename=filename)

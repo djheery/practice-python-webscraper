@@ -49,7 +49,7 @@ def Print_All_Columns():
 def Print_Value():
   pprint(c.value)
 
-wb.save('../balances.xlsx')
+
 
 
 

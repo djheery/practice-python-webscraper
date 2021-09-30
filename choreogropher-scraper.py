@@ -88,5 +88,5 @@ soup = get_data(url)
 links = get_links(soup)
 content = get_scraping(links)
 
-pprint(content[0]['email'])
-st.populate_sheet(content)
+pprint(content)
+# st.populate_sheet(content)
